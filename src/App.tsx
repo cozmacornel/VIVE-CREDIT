@@ -1,21 +1,24 @@
-import { useLocation } from "react-router-dom";
-import AppRoutes from "@/routes/AppRoutes";
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { AdminLayout } from './core/layouts/AdminLayout';
+import { ClientLayout } from './core/layouts/ClientLayout';
+import { OperatorLayout } from './core/layouts/OperatorLayout';
+import { UserRolePermissionTabs } from './modules/admin/components/UserRolePermissionTabs';
+
+
 
 function App() {
-  const location = useLocation();
-
-  const showHeader = location.pathname === "/";
-
   return (
-    <div>
-      {showHeader && (
-        <h1 className="text-4xl font-bold text-blue-600 text-center mt-5">
-          Vive Credit
-        </h1>
-      )}
-
-      <AppRoutes />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<AdminLayout />}>
+          <Route index element={<div className="p-6"></div>} />
+          <Route path="admin/users" element={<UserRolePermissionTabs />} />
+        </Route>
+        <Route path="/client/*" element={<ClientLayout />} />
+        <Route path="/operator/*" element={<OperatorLayout />} />
+      </Routes>
+    </Router>
   );
 }
+
 export default App;
