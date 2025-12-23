@@ -11,16 +11,27 @@ import "./styles/global.css";
 
 import App from "./App";
 
-createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <HelmetProvider>
-      <Provider store={store}>
-        <BrowserRouter>
-          <ThemeProvider>
-            <App />
-          </ThemeProvider>
-        </BrowserRouter>
-      </Provider>
-    </HelmetProvider>
-  </StrictMode>
-);
+console.log("Main.tsx loading...");
+
+const rootElement = document.getElementById("root");
+if (!rootElement) {
+  console.error("Root element not found!");
+} else {
+  console.log("Root element found, mounting app...");
+  createRoot(rootElement).render(
+    <StrictMode>
+      <HelmetProvider>
+        <Provider store={store}>
+          <BrowserRouter>
+            <ThemeProvider>
+              <App />
+            </ThemeProvider>
+          </BrowserRouter>
+        </Provider>
+      </HelmetProvider>
+    </StrictMode>
+  );
+  console.log("App mounted!");
+}
+
+
